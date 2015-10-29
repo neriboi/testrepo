@@ -63,7 +63,7 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 		};
 	})
   
-  .controller('ExampleController', function($scope, SearchLoc) {
+  .controller('ExampleController', function($http, $scope, SearchLoc) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
@@ -262,8 +262,7 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 				var objectToSerialize={'sEncoded':dEncoded};
 				
 				console.log(data);
-				$scope.parseLogin(objectToSerialize);
-				/*
+				
 				$http({
 					method: 'POST', 
 					url: 'https://api.parse.com/1/functions/masSulitLogin', 
@@ -276,7 +275,6 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 						console.log(aData);
 					}
 				);
-				*/
 			   
 			 });
 			} else {
@@ -285,20 +283,6 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 		}, {scope: 'public_profile,email'});
 	}
 	
-	$scope.parseLogin = function(objectToSerialize) {
-		$http({
-			method: 'POST', 
-			url: 'https://api.parse.com/1/functions/masSulitLogin', 
-			headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
-			data: objectToSerialize
-		}).success(function(data)
-			{
-				var aData = atob(data.result).split(';');
-				DemoService.updateUser(aData);
-				console.log(aData);
-			}
-		);
-	}
    })
    
    .config(function($routeProvider) {
