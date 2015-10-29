@@ -158,3 +158,23 @@ MsControllers.controller("searchController", ['$scope','$http', '$routeParams', 
 			);
 		}]
 );
+
+MsControllers.controller("FBController", ['$scope','$http', '$rootScope', 'DemoService',
+	function($scope, $rootScope, $http)
+		{
+			$rootScope.$on("fb_connected", function (event, args) {
+				$http({
+					method: 'POST', 
+					url: 'https://api.parse.com/1/functions/masSulitLogin', 
+					headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
+					data: objectToSerialize
+				}).success(function(data)
+					{
+						var aData = atob(data.result).split(';');
+						DemoService.updateUser(aData);
+						console.log(aData);
+					}
+				);
+			});
+		}]
+);

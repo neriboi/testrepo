@@ -262,6 +262,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 				var objectToSerialize={'sEncoded':dEncoded};
 				
 				console.log(data);
+				
+				 $rootScope.$broadcast('fb_connected', {sEncoded:dEncoded});
 				/*
 				$http({
 					method: 'POST', 
