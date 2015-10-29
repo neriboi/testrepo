@@ -63,7 +63,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		};
 	})
   
-  .controller('ExampleController', function($scope, SearchLoc) {
+  .controller('ExampleController', ['$http', function($scope, SearchLoc, $http, DemoService) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
@@ -256,14 +256,23 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 				var expirationDate = new Date();
 				expirationDate.setMinutes(expirationDate.getSeconds() + accessToken.expiresIn);
 				
-				var data = '{"sFBId":"' + response.id + '","sFBAT":"' + accessToken.accessToken + '","sFBED":"' + expirationDate.toISOString() + '","sFBEA":"' + response.email + '","sFBUN":"' + response.name + '"}';
+				var data = '{"sFBId":"' + response.id + '","sFBAT":"' + accessToken.accessToken + '","sFBED":"' + expirationDate + '","sFBEA":"' + response.email + '","sFBUN":"' + response.name + '"}';
 				var dEncoded = btoa(data);
 				//var jsonData=angular.toJson(data);
 				var objectToSerialize={'sEncoded':dEncoded};
 				
-				console.log(data);
-				
-				$scope.ParseLogin(objectToSerialize);
+				$http({
+					method: 'POST', 
+					url: 'https://api.parse.com/1/functions/masSulitLogin', 
+					headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
+					data: objectToSerialize
+				}).success(function(data)
+					{
+						var aData = atob(data.result).split(';');
+						DemoService.updateUser(aData);
+						console.log(aData);
+					}
+				);
 			   
 			 });
 			} else {
@@ -271,26 +280,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 			}
 		}, {scope: 'public_profile,email'});
 	}
-	
-	$scope.ParseLogin = function (objectToSerialize) {
-	console.log(objectToSerialize);
-	/*
-		$http({
-			method: 'POST', 
-			url: 'https://api.parse.com/1/functions/masSulitLogin', 
-			headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
-			data: objectToSerialize
-		}).success(function(data)
-			{
-				var aData = atob(data.result).split(';');
-				DemoService.updateUser(aData);
-				console.log(aData);
-			}
-		);
-	*/
-	}
-	
-   })
+   }])
    
    .config(function($routeProvider) {
   $routeProvider
