@@ -1,9 +1,9 @@
 var MsControllers = angular.module("MsControllers", []);
 
-MsControllers.controller("MainController", ['$scope', 'DemoService', 'SearchLoc', '$http', '$log',
-	function($scope, DemoService, SearchLoc, $http, $log)
+MsControllers.controller("MainController", ['$scope', 'DemoService', '$http', '$log',
+	function($scope, DemoService, $http, $log)
 		{
-			var sLoc = SearchLoc.getLocation();
+			var sLoc = DemoService.Loc.SearchLoc;
 			var data = '{"sLocation":"' + DemoService.Loc.SearchLoc + '"}';
 			var dEncoded = btoa(data);
 			var objectToSerialize={'sEncoded':dEncoded};
@@ -47,10 +47,10 @@ MsControllers.controller("MainController", ['$scope', 'DemoService', 'SearchLoc'
 		}]
 );
 
-MsControllers.controller("ListController", ['$scope','$http', '$routeParams', 'DemoService', 'SearchLoc', '$log', 
-	function($scope, $http, $routeParams, DemoService, SearchLoc, $log)
+MsControllers.controller("ListController", ['$scope','$http', '$routeParams', 'DemoService', '$log', 
+	function($scope, $http, $routeParams, DemoService, $log)
 		{
-			var sLoc = SearchLoc.getLocation();
+			var sLoc = DemoService.Loc.SearchLoc;
 			var data = '{"sLocation":"' + DemoService.Loc.SearchLoc + '","sSearch":"' + $routeParams.categoryName + '"}';
 			var dEncoded = btoa(data);
 			//var jsonData=angular.toJson(data);
@@ -123,10 +123,10 @@ MsControllers.controller("DetailsController", ['$scope', '$routeParams', 'DemoSe
 		}]
 );
 
-MsControllers.controller("searchController", ['$scope','$http', '$routeParams', 'DemoService', 'SearchLoc',
-	function($scope, $http, $routeParams, DemoService, SearchLoc)
+MsControllers.controller("searchController", ['$scope','$http', '$routeParams', 'DemoService',
+	function($scope, $http, $routeParams, DemoService)
 		{
-			var sLoc = SearchLoc.getLocation();
+			var sLoc = DemoService.Loc.SearchLoc;
 			var data = '{"sLocation":"' + DemoService.Loc.SearchLoc + '","sSearch":"' + $routeParams.searchQuery + '"}';
 			var dEncoded = btoa(data);
 			//var jsonData=angular.toJson(data);
