@@ -46,7 +46,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 	   }(document, 'script', 'facebook-jssdk'));
 	})
   
-  .controller('ExampleController', ['$scope', '$http', 'demoService', function($scope, $http, DemoService) {
+  .controller('ExampleController', ['$scope', '$http', 'DemoService', function($scope, $http, DemoService) {
 	
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
