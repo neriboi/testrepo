@@ -45,27 +45,10 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		 fjs.parentNode.insertBefore(js, fjs);
 	   }(document, 'script', 'facebook-jssdk'));
 	})
-
-  .factory('SearchLoc', function(DemoService){
-		var data =
-        {
-            SearchLoc: 'Metro Manila (NCR)'
-        };
-    
-		return {
-			getLocation: function () {
-				return data.SearchLoc;
-			},
-			setLocation: function (value) {
-				data.SearchLoc = value;
-				DemoService.updateLocation(value);
-			}
-		};
-	})
   
-  .controller('ExampleController', ['$scope', '$http', 'SearchLoc', function($scope, SearchLoc, $http, DemoService) {
+  .controller('ExampleController', ['$scope', '$http', 'demoService', function($scope, $http, DemoService) {
 	
-	$scope.searchLoc = SearchLoc.getLocation();
+	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
 	 searchQuery: 'What service do you need today?',
 	 
@@ -233,8 +216,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
     }
 	
 	$scope.update = function(index) {
-		SearchLoc.setLocation($scope.data.availableOptions[index].name);
-		$scope.searchLoc = SearchLoc.getLocation();
+		DemoService.updateLocation($scope.data.availableOptions[index].name);
+		$scope.searchLoc = DemoService.Loc.SearchLoc;
 	}
 	
 	$scope.get = function() {
