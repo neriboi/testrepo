@@ -246,7 +246,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		FB.login(function(response, $http) {
 			if (response.authResponse) {
 			 console.log('Welcome!  Fetching your information.... ');
-			 FB.api('/me?fields=id,name,email', function(response) {
+			 FB.api('/me?fields=id,name,email', function(response, $http) {
 			   console.log('Good to see you, ' + response.name + '.');
 			   console.log(response.email);
 			   console.log(response);
