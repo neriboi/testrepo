@@ -239,7 +239,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 				var expirationDate = new Date();
 				expirationDate.setMinutes(expirationDate.getSeconds() + accessToken.expiresIn);
 				
-				var data = '{"sFBId":"' + response.id + '","sFBAT":"' + accessToken.accessToken + '","sFBED":"' + expirationDate + '","sFBEA":"' + response.email + '","sFBUN":"' + response.name + '"}';
+				var data = '{"sFBId":"' + response.id + '","sFBAT":"' + accessToken.accessToken + '","sFBED":"' + expirationDate.toISOString() + '","sFBEA":"' + response.email + '","sFBUN":"' + response.name + '"}';
 				var dEncoded = btoa(data);
 				//var jsonData=angular.toJson(data);
 				var objectToSerialize={'sEncoded':dEncoded};
