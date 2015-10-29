@@ -22,13 +22,13 @@
 	<body ng-app="MsApp">
 		
 		<nav class="navbar navbar-trans navbar-fixed-top" role="navigation">
-		  <div class="container">
+		  <div class="container" ng-controller="ExampleController">
 			<div class="row"> 
 				<div class="navbar-header">
 				  <a class="navbar-brand" href="index.html#/"><img src="images/massulit_logo.png" width="114" height="20"/></a>
 				</div>
 				<div class="col-xs-8">
-					<div class="input-group" ng-controller="ExampleController">
+					<div class="input-group">
 						<div class="input-group-btn search-panel" style="width: 50%;">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width: 100%;">
 								<span id="search_concept">{{searchLoc}}</span> <span class="caret"></span>
