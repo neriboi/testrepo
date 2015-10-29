@@ -242,11 +242,11 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		location.href = stringURL;
 	}
 	
-	$scope.FBLogin = function($http, DemoService) {
-		FB.login(function(response, $http, DemoService) {
+	$scope.FBLogin = function() {
+		FB.login(function(response) {
 			if (response.authResponse) {
 			 console.log('Welcome!  Fetching your information.... ');
-			 FB.api('/me?fields=id,name,email', function(response, $http, DemoService) {
+			 FB.api('/me?fields=id,name,email', function(response) {
 			   console.log('Good to see you, ' + response.name + '.');
 			   console.log(response.email);
 			   console.log(response);
