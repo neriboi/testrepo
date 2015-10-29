@@ -244,7 +244,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 			} else {
 			 console.log('User cancelled login or did not fully authorize.');
 			}
-		});
+		}{scope: 'email'});
 	}
    })
    
