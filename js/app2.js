@@ -27,7 +27,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
     return service;
 });
 
-angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap', '$rootScope'])
+angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
