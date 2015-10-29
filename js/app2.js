@@ -27,7 +27,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
     return service;
 });
 
-angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
+angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -63,7 +63,7 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 		};
 	})
   
-  .controller('ExampleController', function($scope, $http, SearchLoc) {
+  .controller('ExampleController', function($scope, SearchLoc) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
@@ -273,6 +273,8 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 	}
 	
 	$scope.ParseLogin = function (objectToSerialize) {
+	console.log(objectToSerialize);
+	/*
 		$http({
 			method: 'POST', 
 			url: 'https://api.parse.com/1/functions/masSulitLogin', 
@@ -285,6 +287,7 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 				console.log(aData);
 			}
 		);
+	*/
 	}
 	
    })
