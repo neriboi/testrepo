@@ -63,7 +63,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		};
 	})
   
-  .controller('ExampleController', ['$http', function($scope, SearchLoc, $http, DemoService) {
+  .controller('ExampleController', ['$scope', '$http', 'SearchLoc', function($scope, SearchLoc, $http, DemoService) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
