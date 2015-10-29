@@ -221,7 +221,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 	}
 	
 	$scope.get = function() {
-		var stringURL = 'index.html#/search/' + $scope.data.searchQuery;
+		var stringURL = 'index.html#/search/' + DemoService.Loc.SearchLoc + '/' + $scope.data.searchQuery;
 		location.href = stringURL;
 	}
 	
@@ -304,7 +304,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
       }
     }
   })
-  .when('/search/:searchQuery', {
+  .when('/search/:searchLoc/:searchQuery', {
     templateUrl: 'partials/search.html',
     controller: 'searchController',
     resolve: {

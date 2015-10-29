@@ -127,7 +127,7 @@ MsControllers.controller("searchController", ['$scope','$http', '$routeParams', 
 	function($scope, $http, $routeParams, DemoService)
 		{
 			var sLoc = DemoService.Loc.SearchLoc;
-			var data = '{"sLocation":"' + DemoService.Loc.SearchLoc + '","sSearch":"' + $routeParams.searchQuery + '"}';
+			var data = '{"sLocation":"' + $routeParams.searchLoc + '","sSearch":"' + $routeParams.searchQuery + '"}';
 			var dEncoded = btoa(data);
 			//var jsonData=angular.toJson(data);
 			var objectToSerialize={'sEncoded':dEncoded};
@@ -152,7 +152,7 @@ MsControllers.controller("searchController", ['$scope','$http', '$routeParams', 
 					
 					$scope.posts = aJSON; // response data 
 					$scope.searchQuery = $routeParams.searchQuery;
-					$scope.searchLoc = sLoc;
+					$scope.searchLoc = $routeParams.searchLoc;
 					DemoService.updateValue($scope.posts);
 				}
 			);
