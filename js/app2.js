@@ -4,6 +4,10 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
 	service.Loc = {
 		SearchLoc: 'Metro Manila (NCR)'
 	};
+	service.User = {
+		accessToken: '',
+		Name: ''
+	}
 
     service.updateValue = function(value){
         this.Post = value;
@@ -12,11 +16,16 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
 	service.updateLocation = function(value){
         this.Loc.SearchLoc = value;
     }
+	
+	service.updateUser = function(value){
+        this.User.accessToken = value[0];
+		this.User.Name = value[1];
+    }
 
     return service;
 });
 
-angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
+angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap', '$http'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -52,7 +61,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		};
 	})
   
-  .controller('ExampleController', function($scope, SearchLoc) {
+  .controller('ExampleController', function($scope, SearchLoc, $http) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
@@ -241,6 +250,28 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 			   console.log(response);
 			   var accessToken = FB.getAuthResponse();
 			   console.log(accessToken);
+			   
+				var expirationDate = new Date();
+				expirationDate.setMinutes(expirationDate.getSeconds() + accessToken.expiresIn);
+				
+				var data = '{"sFBId":"' + response.id + '","sFBAT":"' + accessToken.accessToken + '","sFBED":"' + expirationDate + '","sFBEA":"' + response.email + '","sFBUN":"' + response.name + '"}';
+				var dEncoded = btoa(data);
+				//var jsonData=angular.toJson(data);
+				var objectToSerialize={'sEncoded':dEncoded};
+				
+				$http({
+					method: 'POST', 
+					url: 'https://api.parse.com/1/functions/masSulitLogin', 
+					headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
+					data: objectToSerialize
+				}).success(function(data)
+					{
+						var aData = atob(data.result).split(';');
+						DemoService.updateUser(aData);
+						console.log(aData);
+					}
+				);
+			   
 			 });
 			} else {
 			 console.log('User cancelled login or did not fully authorize.');
