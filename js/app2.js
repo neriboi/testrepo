@@ -27,7 +27,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
     return service;
 });
 
-angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
+angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap', '$rootScope'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -63,7 +63,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		};
 	})
   
-  .controller('ExampleController', function($scope, SearchLoc) {
+  .controller('ExampleController', function($scope, SearchLoc, $rootScope) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
