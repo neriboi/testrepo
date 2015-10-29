@@ -242,6 +242,21 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 		location.href = stringURL;
 	}
 	
+	$scope.ParseLogin = function (objectToSerialize) {
+		$http({
+			method: 'POST', 
+			url: 'https://api.parse.com/1/functions/masSulitLogin', 
+			headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
+			data: objectToSerialize
+		}).success(function(data)
+			{
+				var aData = atob(data.result).split(';');
+				DemoService.updateUser(aData);
+				console.log(aData);
+			}
+		);
+	}
+	
 	$scope.FBLogin = function() {
 		FB.login(function(response) {
 			if (response.authResponse) {
@@ -263,18 +278,7 @@ angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ng
 				
 				console.log(data);
 				
-				$http({
-					method: 'POST', 
-					url: 'https://api.parse.com/1/functions/masSulitLogin', 
-					headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
-					data: objectToSerialize
-				}).success(function(data)
-					{
-						var aData = atob(data.result).split(';');
-						DemoService.updateUser(aData);
-						console.log(aData);
-					}
-				);
+				$scope.ParseLogin(objectToSerialize);
 			   
 			 });
 			} else {
