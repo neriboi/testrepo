@@ -27,7 +27,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
     return service;
 });
 
-angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
+angular.module('MsApp', ['$http', 'ngRoute', 'MsControllers', 'demoService', 'ngAnimate', 'ui.bootstrap'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -63,7 +63,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		};
 	})
   
-  .controller('ExampleController', function($scope, SearchLoc, $rootScope) {
+  .controller('ExampleController', function($scope, SearchLoc) {
 	
 	$scope.searchLoc = SearchLoc.getLocation();
 	$scope.data = {
@@ -262,8 +262,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 				var objectToSerialize={'sEncoded':dEncoded};
 				
 				console.log(data);
-				
-				 $rootScope.$broadcast('fb_connected', {sEncoded:dEncoded});
+				$scope.parseLogin(objectToSerialize);
 				/*
 				$http({
 					method: 'POST', 
@@ -284,6 +283,21 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 			 console.log('User cancelled login or did not fully authorize.');
 			}
 		}, {scope: 'public_profile,email'});
+	}
+	
+	$scope.parseLogin = function(objectToSerialize) {
+		$http({
+			method: 'POST', 
+			url: 'https://api.parse.com/1/functions/masSulitLogin', 
+			headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV'},
+			data: objectToSerialize
+		}).success(function(data)
+			{
+				var aData = atob(data.result).split(';');
+				DemoService.updateUser(aData);
+				console.log(aData);
+			}
+		);
 	}
    })
    
