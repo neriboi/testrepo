@@ -43,6 +43,7 @@ MsControllers.controller("MainController", ['$scope', 'DemoService', '$http', '$
 			
 			$scope.myInterval = 5000;
 			$scope.noWrapSlides = false;
+			$scope.searchLoc = sLoc;
 			$scope.slides = [{image: 'images/carousel1.png'}, {image: 'images/carousel2.png'}, {image: 'images/carousel3.png'}];
 		}]
 );
