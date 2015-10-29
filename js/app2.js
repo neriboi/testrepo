@@ -235,8 +235,9 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		FB.login(function(response) {
 			if (response.authResponse) {
 			 console.log('Welcome!  Fetching your information.... ');
-			 FB.api('/me', function(response) {
+			 FB.api('/me?fields=id,name,email', function(response) {
 			   console.log('Good to see you, ' + response.name + '.');
+			   console.log(response.email);
 			   console.log(response);
 			   var accessToken = FB.getAuthResponse();
 			   console.log(accessToken);
@@ -244,7 +245,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 			} else {
 			 console.log('User cancelled login or did not fully authorize.');
 			}
-		}, {scope: 'basic_info,email'});
+		}, {scope: 'public_profile,email'});
 	}
    })
    
