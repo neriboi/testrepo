@@ -5,6 +5,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
 		SearchLoc: 'Metro Manila (NCR)'
 	};
 	service.User = {
+		log: 'false',
 		accessToken: '',
 		Name: ''
 	}
@@ -18,6 +19,7 @@ angular.module('demoService', []).factory('DemoService', function($rootScope){
     }
 	
 	service.updateUser = function(value){
+		this.User.log = 'true';
         this.User.accessToken = value[0];
 		this.User.Name = value[1];
     }
@@ -240,8 +242,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 		location.href = stringURL;
 	}
 	
-	$scope.FBLogin = function() {
-		FB.login(function(response) {
+	$scope.FBLogin = function($http) {
+		FB.login(function(response, $http) {
 			if (response.authResponse) {
 			 console.log('Welcome!  Fetching your information.... ');
 			 FB.api('/me?fields=id,name,email', function(response) {
