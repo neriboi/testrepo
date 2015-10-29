@@ -221,6 +221,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'demoService', 'ngAnimate',
 	}
 	
 	$scope.get = function() {
+		$scope.searchLoc = DemoService.Loc.SearchLoc;
 		var stringURL = 'index.html#/search/' + DemoService.Loc.SearchLoc + '/' + $scope.data.searchQuery;
 		location.href = stringURL;
 	}
