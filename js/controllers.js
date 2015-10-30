@@ -85,8 +85,8 @@ MsControllers.controller("ListController", ['$scope','$http', '$routeParams', 'D
 		}]
 );
 
-MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams', 'DemoService', '$log', '$cookieStore',
-	function($scope, $http, $routeParams, DemoService, $log, $cookieStore)
+MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams', 'DemoService', '$log', '$cookies',
+	function($scope, $http, $routeParams, DemoService, $log, $cookies)
 		{
 			var aJSON = [];
 			if (DemoService.Post[$routeParams.postID].iReviews > 0) {
@@ -122,7 +122,7 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			}
 			
 			$scope.logged = false;
-			var userToken = $cookieStore.get('myToken');
+			var userToken = $cookies.get('myToken');
 			if (userToken.length == 2) {
 				$scope.logged = true;
 			}

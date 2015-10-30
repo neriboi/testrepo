@@ -35,7 +35,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	   }(document, 'script', 'facebook-jssdk'));
 	})
   
-  .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookieStore', function($scope, $http, DemoService, $cookieStore) {
+  .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
 	
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
@@ -242,7 +242,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 				}).success(function(data)
 					{
 						var aData = atob(data.result).split(';');
-						$cookieStore.put('myToken',aData);
+						$cookies.put('myToken',aData);
 						console.log(aData);
 					}
 				);
