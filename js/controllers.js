@@ -138,7 +138,6 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			
 			$scope.addReview = function(){
 			  $scope.reviewHolder.sDate = sDate;
-			  $scope.reviewHolder.sAuthor = DemoService.User.Name;
 			  $scope.reviewHolder.iRating = $scope.review.iRating;
 			  $scope.reviewHolder.sTitle = $scope.review.sTitle;
 			  $scope.reviewHolder.sDesc = $scope.review.sDesc;
