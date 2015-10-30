@@ -22,6 +22,8 @@ angular.module('DemoService', []).factory('DemoService', function($rootScope){
 		this.User.log = 'true';
         this.User.accessToken = value[0];
 		this.User.Name = value[1];
+		$rootScope.accessToken = value[0];
+		$rootScope.Name = value[1];
     }
 
     return service;
