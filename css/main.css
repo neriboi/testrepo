@@ -885,24 +885,22 @@ h2.title {
   display: block;
 }
 
-#reviews form span input {
+#reviews form span fieldset input {
   background:#F0F0E9;
-  border: 0 none;
+  border: medium none;
   color: #A6A6A1;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   outline: medium none;
   padding: 8px;
-  width: 48%;
-}
-#reviews form span input:last-child {
-  margin-left: 3%;
+  width: 99.5%;
 }
 
 #reviews textarea {
   background: #F0F0E9;
   border: medium none;
   color: #A6A6A1;
+  font-family: 'Roboto', sans-serif;
   height: 195px;
   margin-bottom: 25px;
   margin-top: 15px;
@@ -910,6 +908,16 @@ h2.title {
   padding-left: 10px;
   padding-top: 15px;
   resize: none;
+  width: 99.5%;
+}
+
+#reviews form fieldset select {
+  background:#F0F0E9;
+  border: medium none;
+  color: #A6A6A1;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  outline: medium none;
   width: 99.5%;
 }
 

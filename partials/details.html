@@ -209,6 +209,7 @@
 						<div class="tab-pane fade active in" id="details" ng-show="selectedTab == 1">
 							<div class="col-sm-12">
 								<div class="col-sm-8">
+									<p>{{posts}}</p>
 									<p>{{posts.sDescription}}</p>
 									<p><b>Contact Person:</b> {{posts.sPerson}}</p>
 									<p><b>Opening Hours:</b> {{posts.sHours}}</p>
@@ -252,14 +253,22 @@
 								</div>
 								<p><b>Write Your Review</b></p>
 								
-								<form action="#">
+								<form ng-submit="addReview()">
 									<span>
-										<input type="text" placeholder="Your Name"/>
-										<input type="email" placeholder="Email Address"/>
+										<fieldset class="form-group">
+										  <input ng-model="review.sTitle" type="text" class="form-control" placeholder="Review Title" title="Review Title" />
+										</fieldset>
 									</span>
-									<textarea name="" ></textarea>
-									<b>Rating: </b>
-									<button type="button" class="btn btn-default pull-right">
+									<fieldset class="form-group">
+									  <textarea ng-model="review.sDesc" class="form-control" placeholder="Write a short review of the service..." title="Review"></textarea>
+									</fieldset>
+									<p><b>Rating: </b></p>
+									<fieldset class="form-group">
+									  <select ng-model="review.iRating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars">
+										<option value="5">Rate the Service</option>
+									  </select>
+									</fieldset>
+									<button type="submit" class="btn btn-default pull-right">
 										Submit
 									</button>
 								</form>
