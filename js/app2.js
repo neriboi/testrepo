@@ -4,11 +4,6 @@ angular.module('DemoService', []).factory('DemoService', function($rootScope){
 	service.Loc = {
 		SearchLoc: 'Metro Manila (NCR)'
 	};
-	service.User = {
-		log: 'false',
-		accessToken: '',
-		Name: ''
-	}
 
     service.updateValue = function(value){
         this.Post = value;
@@ -17,19 +12,11 @@ angular.module('DemoService', []).factory('DemoService', function($rootScope){
 	service.updateLocation = function(value){
         this.Loc.SearchLoc = value;
     }
-	
-	service.updateUser = function(value){
-		this.User.log = 'true';
-        this.User.accessToken = value[0];
-		this.User.Name = value[1];
-		$rootScope.accessToken = value[0];
-		$rootScope.Name = value[1];
-    }
 
     return service;
 });
 
-angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate', 'ui.bootstrap'])
+angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate', 'ui.bootstrap', 'ngCookies'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -48,7 +35,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	   }(document, 'script', 'facebook-jssdk'));
 	})
   
-  .controller('ExampleController', ['$scope', '$http', 'DemoService', function($scope, $http, DemoService) {
+  .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookieStore', function($scope, $http, DemoService, $cookieStore) {
 	
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
@@ -255,7 +242,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 				}).success(function(data)
 					{
 						var aData = atob(data.result).split(';');
-						DemoService.updateUser(aData);
+						$cookieStore.put('myToken',aData);
 						console.log(aData);
 					}
 				);

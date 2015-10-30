@@ -1,4 +1,4 @@
-var MsControllers = angular.module("MsControllers", []);
+var MsControllers = angular.module("MsControllers", ['ngCookies']);
 
 MsControllers.controller("MainController", ['$scope', 'DemoService', '$http', '$log',
 	function($scope, DemoService, $http, $log)
@@ -85,8 +85,8 @@ MsControllers.controller("ListController", ['$scope','$http', '$routeParams', 'D
 		}]
 );
 
-MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams', 'DemoService', '$log',
-	function($scope, $http, $routeParams, DemoService, $log, $rootScope)
+MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams', 'DemoService', '$log', '$cookieStore',
+	function($scope, $http, $routeParams, DemoService, $log, $cookieStore)
 		{
 			var aJSON = [];
 			if (DemoService.Post[$routeParams.postID].iReviews > 0) {
@@ -121,6 +121,12 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 				$scope.empty = true;
 			}
 			
+			$scope.logged = false;
+			var userToken = $cookieStore.get('myToken');
+			if (userToken.length == 2) {
+				$scope.logged = true;
+			}
+			
 			$scope.review = {
 				iRating: 5,
 				sTitle: '',
@@ -152,7 +158,7 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			  $http({
 				method: 'POST', 
 				url: 'https://api.parse.com/1/functions/setPostReview', 
-				headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV', 'X-Parse-Session-Token':DemoService.User.accessToken},
+				headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV', 'X-Parse-Session-Token':userToken[0]},
 				data: objectToSerialize
 			  }).success(function(data)
 				{
