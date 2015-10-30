@@ -122,13 +122,9 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			
 			$scope.logged = false;
 			var userToken = $cookies.get('myToken');
+			var userName = $cookies.get('myName');
+			$scope.logged = $cookies.get('myLogged');
 			console.log(userToken);
-			console.log(userToken.length);
-			if (userToken.length == 2) {
-				$scope.logged = true;
-				console.log(userToken.length);
-			}
-			console.log(userToken.length);
 			
 			$scope.review = {
 				iRating: 5,
@@ -147,6 +143,7 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			  $scope.reviewHolder.iRating = $scope.review.iRating;
 			  $scope.reviewHolder.sTitle = $scope.review.sTitle;
 			  $scope.reviewHolder.sDesc = $scope.review.sDesc;
+			  $scope.reviewHolder.sAuthor = userName;
 			  $scope.posts.aReviews.push($scope.reviewHolder);
 			  $scope.review.iRating = 5;
 			  $scope.review.sTitle = '';
@@ -161,7 +158,7 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			  $http({
 				method: 'POST', 
 				url: 'https://api.parse.com/1/functions/setPostReview', 
-				headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV', 'X-Parse-Session-Token':userToken[0]},
+				headers: { 'X-Parse-Application-Id':'9XYZMrEUVyTb2VJM4zOuW3cxEyOAAnPSwnkFDURM', 'X-Parse-REST-API-Key':'HoW440iQCWQFVT6qW2qpo0wrVflSq7bH8VTQjOeV', 'X-Parse-Session-Token':userToken},
 				data: objectToSerialize
 			  }).success(function(data)
 				{
