@@ -122,9 +122,13 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 			
 			$scope.logged = false;
 			var userToken = $cookies.get('myToken');
+			console.log(userToken);
+			console.log(userToken.length);
 			if (userToken.length == 2) {
 				$scope.logged = true;
+				console.log(userToken.length);
 			}
+			console.log(userToken.length);
 			
 			$scope.review = {
 				iRating: 5,
