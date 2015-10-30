@@ -120,7 +120,6 @@ MsControllers.controller("DetailsController", ['$scope', '$http', '$routeParams'
 				$scope.empty = true;
 			}
 			
-			$scope.logged = false;
 			var userToken = $cookies.get('myToken');
 			var userName = $cookies.get('myName');
 			$scope.logged = $cookies.get('myLogged');
