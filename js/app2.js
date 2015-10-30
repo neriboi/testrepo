@@ -36,9 +36,6 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
-	$cookies.put('myToken','');
-	$cookies.put('myName','');
-	$cookies.put('myLogged',false);
 	
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
