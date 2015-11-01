@@ -249,6 +249,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 						console.log(aData);
 						$scope.sign = true;
 						$scope.hello = aData[1];
+						console.log($scope.sign);
+						
 					}
 				);
 			   
