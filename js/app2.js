@@ -1,22 +1,4 @@
-angular.module('DemoService', []).factory('DemoService', function($rootScope){
-    var service = {};
-    service.Post = {};
-	service.Loc = {
-		SearchLoc: 'Metro Manila (NCR)'
-	};
-
-    service.updateValue = function(value){
-        this.Post = value;
-    }
-	
-	service.updateLocation = function(value){
-        this.Loc.SearchLoc = value;
-    }
-
-    return service;
-});
-
-angular.module('MsApp', ['ngRoute', 'DemoService', 'ngAnimate', 'ui.bootstrap', 'ngCookies'])
+angular.module('MsApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies'])
   .run(function () {
 		window.fbAsyncInit = function () {
 			FB.init({
@@ -34,10 +16,35 @@ angular.module('MsApp', ['ngRoute', 'DemoService', 'ngAnimate', 'ui.bootstrap', 
 		 fjs.parentNode.insertBefore(js, fjs);
 	   }(document, 'script', 'facebook-jssdk'));
 	})
+	
+	.factory('DemoService', function(){
+		var service = {};
+		service.Post = {};
+		service.buttonLabel = ' Sign in via Facebook';
+		service.bLogged = false;
+		service.Loc = {
+			SearchLoc: 'Metro Manila (NCR)'
+		};
+
+		service.updateValue = function(value){
+			this.Post = value;
+		}
+		
+		service.updateLogged = function(value){
+			service.buttonLabel = ' Hello' + value;
+			service.bLogged = true;
+		}
+		
+		service.updateLocation = function(value){
+			this.Loc.SearchLoc = value;
+		}
+
+		return service;
+	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
-	$scope.buttonLabel = ' Sign in via Facebook';
-	$scope.bLogged = false;
+	$scope.buttonLabel = DemoService.buttonLabel;
+	$scope.bLogged = DemoService.bLogged;
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
 	 searchQuery: 'What service do you need today?',
@@ -247,9 +254,9 @@ angular.module('MsApp', ['ngRoute', 'DemoService', 'ngAnimate', 'ui.bootstrap', 
 						$cookies.put('myName',aData[1]);
 						$cookies.put('myLogged',true);
 						console.log(aData);
-						$scope.buttonLabel = ' Hello, ' + aData[1];
-						$scope.bLogged = true;
-						
+						DemoService.updateLogged(aData[1]);
+						$scope.buttonLabel = DemoService.buttonLabel;
+						$scope.bLogged = DemoService.bLogged;
 					}
 				);
 			   
