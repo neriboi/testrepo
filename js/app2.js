@@ -31,7 +31,7 @@ angular.module('MsApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies'])
 		}
 		
 		service.updateLogged = function(value){
-			service.buttonLabel = ' Hello' + value;
+			service.buttonLabel = ' Hello, ' + value;
 			service.bLogged = true;
 		}
 		
