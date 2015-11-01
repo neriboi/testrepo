@@ -36,7 +36,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
-	$scope.sign = 0;
+	$scope.iSign = 1;
 	$scope.hello = '';
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
@@ -247,7 +247,7 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 						$cookies.put('myName',aData[1]);
 						$cookies.put('myLogged',true);
 						console.log(aData);
-						$scope.sign = 1;
+						$scope.iSign = 2;
 						$scope.hello = aData[1];
 						console.log($scope.sign);
 						console.log($scope.hello);
