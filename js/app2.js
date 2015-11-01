@@ -36,8 +36,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
-	$scope.intDisable = 0;
-	$scope.buttonLabel = ' Sign in via Facebook';
+	$scope.iSign = 1;
+	$scope.hello = '';
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
 	 searchQuery: 'What service do you need today?',
@@ -247,9 +247,10 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 						$cookies.put('myName',aData[1]);
 						$cookies.put('myLogged',true);
 						console.log(aData);
-						$scope.buttonLabel = 'Hello, ' + aData[1];
-						console.log($scope.buttonLabel);
-						$scope.intDisable = 1;
+						$scope.iSign = 2;
+						$scope.hello = aData[1];
+						console.log($scope.iSign);
+						console.log($scope.hello);
 						
 					}
 				);
