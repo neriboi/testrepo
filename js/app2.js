@@ -17,11 +17,20 @@ angular.module('MsApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies'])
 	   }(document, 'script', 'facebook-jssdk'));
 	})
 	
-	.factory('DemoService', function(){
+	.factory('DemoService', function($cookies){
 		var service = {};
 		service.Post = {};
-		service.buttonLabel = ' Sign in via Facebook';
-		service.bLogged = false;
+		
+		var userName = $cookies.get('myName');
+		var isLogged = $cookies.get('myLogged');
+		
+		if (isLogged) {
+			service.buttonLabel = ' Hello, ' + userName;
+			service.bLogged = true;
+		} else {
+			service.buttonLabel = ' Sign in via Facebook';
+			service.bLogged = false;
+		}
 		service.Loc = {
 			SearchLoc: 'Metro Manila (NCR)'
 		};
