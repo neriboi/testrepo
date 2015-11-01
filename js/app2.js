@@ -36,7 +36,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies) {
-	
+	$scope.sign = false;
+	$scope.hello = '';
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
 	$scope.data = {
 	 searchQuery: 'What service do you need today?',
@@ -246,6 +247,8 @@ angular.module('MsApp', ['ngRoute', 'MsControllers', 'DemoService', 'ngAnimate',
 						$cookies.put('myName',aData[1]);
 						$cookies.put('myLogged',true);
 						console.log(aData);
+						$scope.sign = true;
+						$scope.hello = aData[1];
 					}
 				);
 			   

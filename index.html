@@ -44,14 +44,11 @@
 						</span>
 					</div>
 				</div>
-				<div class="social-icons">
-					<ul class="nav navbar-nav">
-						<li><a href="#"><i class="fa fa-facebook fafb"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter fat"></i></a></li>
-						<li><a href="#"><i class="fa fa-user fau"></i></a></li>
-						<!--  <li><a href="javascript:" ng-click="FBLogin()" ><i class="fa fa-lock fal"></i></a></li> -->
-					</ul>
-					<button ng-click="FBLogin()" >Facebook Login</button>
+				<div class="social-icons" style="padding-top: 9px;" ng-hide={{sign}}>
+					<button ng-click="FBLogin()" class="btn btn-primary" ><i class="fa fa-facebook fafb"><span style="font-family: 'Roboto', sans-serif; "> Sign in via Facebook</span></i></button>
+				</div>
+				<div class="social-icons" style="padding-top: 9px;" ng-show={{sign}}>
+					<span style="font-family: 'Roboto', sans-serif; ">Hello, {{hello}}</span></i></button>
 				</div>
 			</div>
 		  </div>
