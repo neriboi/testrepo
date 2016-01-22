@@ -52,7 +52,6 @@ angular.module('MsApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies', 'c
 	})
   
   .controller('ExampleController', ['$scope', '$http', 'DemoService', '$cookies', function($scope, $http, DemoService, $cookies, cfpLoadingBar) {
-	
 	$scope.buttonLabel = DemoService.buttonLabel;
 	$scope.bLogged = DemoService.bLogged;
 	$scope.searchLoc = DemoService.Loc.SearchLoc;
@@ -479,7 +478,7 @@ angular.module('MsApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngCookies', 'c
 			$scope.myInterval = 5000;
 			$scope.noWrapSlides = false;
 			$scope.searchLoc = sLoc;
-			$scope.slides = [{image: 'images/carousel1-min.png'}, {image: 'images/carousel2-min.png'}, {image: 'images/carousel3-min.png'}];
+			$scope.slides = [{image: 'images/carousel1.png'}, {image: 'images/carousel2.png'}, {image: 'images/carousel3.png'}];
 		}]
 	)
 	
