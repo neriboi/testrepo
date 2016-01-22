@@ -1,19 +1,13 @@
-<!-- Page Content -->
-    <div class="container" id="list-body">
-
-        <!-- Page Heading/Breadcrumbs -->
+<section>
+	<div class="container" id="details">
+		<!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="page-header">{{posts.length}} Search Results 
-                    <small>in {{searchLoc}}</small>
-                </h4>
                 <ol class="breadcrumb">
-                    <li>Services for</li>
-                    <li class="active">{{searchQuery}}</li>
+                    <li>Add a Listing</li>
                 </ol>
             </div>
         </div>
-        <!-- /.row -->
 		<div class="row" style="background-color: #fff;">
 			<div class="col-sm-3" style="background-color: #fff;">
 				<div class="left-sidebar" style="background-color: #fff;">
@@ -190,57 +184,123 @@
 					
 				</div>
 			</div>
-
-        <!-- Project One -->
-			<div class="col-sm-8 padding-right" style="background:#FFF;border: 1px solid #F7F7F0;">
-				<div ng-show="posts.length == 0">
-					<div class="row" style="padding-left: 30px;">
-						<div class="col-sm-9"><h3 style="font-family: 'Roboto', sans-serif; font-size: 18px;  font-weight: 500;">No results found for {{searchQuery}} services in {{searchLoc}}</h3></div>
+			
+			<div class="col-sm-9 padding-right">
+				
+				<div class="category-tab shop-details-tab"><!--category-tab-->
+					<div class="col-sm-12">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-target="#">Manage Business Profile</a></li>
+							<!--<li class="current">Manage Business Profile</li>-->
+						</ul>
 					</div>
-				</div>
-				<div ng-show="posts.length > 0">
-					<div ng-repeat="item in posts" id="list-lists">
-						<div class="row" style="padding-left: 30px;">
-							<div class="col-sm-9"><h3 style="font-family: 'Roboto', sans-serif; font-size: 18px;  font-weight: 500;"><a ng-href="index.html#/details/{{$index}}">{{item.sName}}</a></h3></div>
-						</div>
-						<div class="row" style="font-family: 'Roboto', sans-serif; font-size: 16px; padding-left: 30px; padding-top: 5px;">
-							<div class="col-sm-3">
-								<div class="star-rating" ng-show="{{item.iStars}} == 0"> 
-								  <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><span>({{item.iReviews}})</span>
+					<div class="tab-content">
+						<div class="tab-pane fade active in" id="reviews">
+							<div class="col-sm-12">
+								<div ng-hide="{{logged}}">
+									<p><b>You need to be logged in to add a business.</b></p>
 								</div>
-								<div class="star-rating" ng-show="{{item.iStars}} == 1"> 
-								  <i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><span>({{item.iReviews}})</span>
-								</div>
-								<div class="star-rating" ng-show="{{item.iStars}} == 2"> 
-								  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><span>({{item.iReviews}})</span>
-								</div>
-								<div class="star-rating" ng-show="{{item.iStars}} == 3"> 
-								  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><span>({{item.iReviews}})</span>
-								</div>
-								<div class="star-rating" ng-show="{{item.iStars}} == 4"> 
-								  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><span>({{item.iReviews}})</span>
-								</div>
-								<div class="star-rating" ng-show="{{item.iStars}} == 5"> 
-								  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><span>({{item.iReviews}})</span>
+								
+								<div ng-show="{{logged}}">
+									<form ng-submit="addPost()">
+										<p><b>Business Name: </b></p>
+										<span>
+											<fieldset class="form-group">
+											  <input type="text" class="form-control" ng-model="post.sName" ng-model-options="{ getterSetter: true }" placeholder="enter name of business or service" required />
+											</fieldset>
+										</span>
+										<p><b>Location (Region): </b></p>
+										<span>
+											<fieldset class="form-group">
+												<select ng-model="tempRegion" class="form-control" data-ng-options="option for option in mainLoc" data-ng-change="getSubLocs()" required>
+												</select>
+											</fieldset>
+										</span>
+										<div data-ng-show='subLoc.length'>
+											<p><b>Location (City): </b></p>
+											<span>
+												<fieldset class="form-group">
+													<select ng-model="tempCity" class="form-control" data-ng-options="option for option in subLoc" required>
+													</select>
+												</fieldset>
+											</span>
+										</div>
+										<p><b>Business Address: </b></p>
+										<span>
+											<fieldset class="form-group">
+											  <input type="text" class="form-control" ng-model="details.sAddress" ng-model-options="{ getterSetter: true }" placeholder="Philippines only" required />
+											</fieldset>
+										</span>
+										<p><b>Category: </b></p>
+										<span>
+											<fieldset class="form-group">
+												<select ng-model="tempCat" class="form-control" data-ng-options="option for option in mainCat" data-ng-change="getSubCats()" required>
+												</select>
+											</fieldset>
+										</span>
+										<div data-ng-show='subCats.length'>
+											<p><b>Sub Category: </b></p>
+											<span>
+												<fieldset class="form-group">
+													<select ng-model="tempSubCat" class="form-control" data-ng-options="option.subCat for option in subCats" required>
+													</select>
+												</fieldset>
+											</span>
+										</div>
+										<p><b>Opening Hours: </b></p>
+										<span>
+											<fieldset class="form-group">
+												<input type="text" class="form-control" ng-model="details.sOpen" ng-model-options="{ getterSetter: true }" placeholder="enter the hours and/or the days" required />
+											</fieldset>
+										</span>
+										<p><b>Description: </b></p>
+										<span>
+											<fieldset class="form-group">
+												<textarea ng-model="details.sDesc" class="form-control" placeholder="Write a short description of the service..." required></textarea>
+											</fieldset>
+										</span>
+										<p><b>Contact Info: </b></p>
+										<span>
+											<fieldset class="form-group">
+												<input type="text" class="form-control" ng-model="details.sPerson" ng-model-options="{ getterSetter: true }" placeholder="enter contact person" required />
+											</fieldset>
+										</span>
+										<span>
+											<fieldset class="form-group">
+												<input type="text" class="form-control" ng-model="details.sPhone" ng-model-options="{ getterSetter: true }" placeholder="enter phone number" required />
+											</fieldset>
+										</span>
+										<span>
+											<fieldset class="form-group">
+												<input type="text" class="form-control" ng-model="details.sMobile" ng-model-options="{ getterSetter: true }" placeholder="enter mobile number" required />
+											</fieldset>
+										</span>
+										<span>
+											<fieldset class="form-group">
+												<input type="email" class="form-control" ng-model="details.sEmail" ng-model-options="{ getterSetter: true }" placeholder="enter email address" required />
+											</fieldset>
+										</span>
+										<span>
+											<fieldset class="form-group">
+												<input type="text" class="form-control" ng-model="details.sFB" ng-model-options="{ getterSetter: true }" placeholder="eg. www.facebook.com/sampleurl" required />
+											</fieldset>
+										</span>
+										<p><b>Upload Image: </b></p>
+										<span>
+											<fieldset class="form-group" style="overflow: hidden;">
+												<input id="inputFileToLoad" type="file" class="form-control" accept="image/*" onchange="angular.element(this).scope().openFile()" />
+											</fieldset>
+										</span>
+										<button type="submit" class="btn btn-default pull-right">
+											Submit
+										</button>
+									</form>
 								</div>
 							</div>
-							<div class="col-sm-3"></div>
-							<div class="col-sm-3"><i class="fa fa-phone"></i> {{item.sPhone}}</div>
 						</div>
-						<div class="row" style="font-family: 'Roboto', sans-serif; font-size: 16px;padding-left: 30px;padding-top: 10px;">
-							<div class="col-sm-6"><span><i class="fa fa-map-marker"></i> {{item.sAddress}}</span></div>
-							<div class="col-sm-3"><i class="fa fa-mobile"></i> {{item.sMobile}}</div>
-						</div>
-						<span><hr width="95%" style="padding-left: 0px;" /></span>
 					</div>
-				</div>
-				<div>
-					<div class="row" style="padding-left: 30px;">
-						<div class="col-sm-10"><h6 style="font-family: 'Roboto', sans-serif; font-size: 14px;">If we're missing a business and you'd like to make a suggestion, please do! <a href="index.html#/add/">Add a business.</a></h6></div>
-					</div>
-				</div>
+				</div><!--/category-tab-->
 			</div>
 		</div>
-        <!-- /.row -->
 	</div>
-        
+</section>

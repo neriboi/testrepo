@@ -1,9 +1,9 @@
 <div class="container" style="width: 100%;">
-	<header style="height: 50% !important;">
+	<header style="height: 100% !important;">
 		<div>
-			<carousel interval="myInterval" no-wrap="noWrapSlides" >
+			<carousel interval="myInterval" no-wrap="noWrapSlides">
 				<slide ng-repeat="slide in slides" active="slide.active" style="height: 100%;">
-					<img ng-src="{{slide.image}}" width="100%" style="height: 100%;" />
+					<img ng-src="{{slide.image}}" width="100%" style="height: 100%; min-width: 100%;" />
 				</slide>
 			</carousel>
 		</div>
